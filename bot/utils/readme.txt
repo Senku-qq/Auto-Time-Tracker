@@ -1,0 +1,1 @@
+Генерация графиков (Plotly/Matplotlib)
