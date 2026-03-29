@@ -2,11 +2,20 @@
 import win32gui
 import time 
 
-def test(): 
+
+
+def get_monitors_activity():
+
     hwnd = win32gui.GetForegroundWindow()
     title = win32gui.GetWindowText(hwnd)
-    print(title)
+    active_window = { 
+        "monitor": 1, 
+        "title": title, 
+        "is_main": True 
+    }
+    return  [active_window]
 
 if __name__ == "__main__":
     time.sleep(3)
-    test() 
+    print(get_monitors_activity())
+
