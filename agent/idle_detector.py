@@ -2,7 +2,7 @@
 from pynput import keyboard , mouse
 import time 
 class IdleDetector: 
-    def __init__(self, threshold=120):
+    def __init__(self, threshold=10):
         self.threshold = threshold
         self.last_input_time = time.time()
 
@@ -23,3 +23,9 @@ class IdleDetector:
     
 
     # надо будет сделать проверку на то, открыт ли сейчас плеер ютуб или что то где не нужна мышь и клавиатура 
+    
+detector = IdleDetector()
+# for i in range(2):
+las
+time.sleep(5)
+print(detector.is_idle())
