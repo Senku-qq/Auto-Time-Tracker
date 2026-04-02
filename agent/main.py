@@ -6,13 +6,20 @@ from idle_detector import *
 import time 
 
 detector = IdleDetector()
+is_already_idle = False
+
 while True:
     if detector.is_idle(): # если нет движения то входим в цикл ожилания какого то действия 
-        print("Система в режиме ожидания любого действия...")
-        time.sleep(5)
-        continue
+        if is_already_idle:
+            time.sleep(5)
+            continue
+        else:
+            is_already_idle = True
+            print("Система в режиме ожидания любого действия...")
+            continue
 
     try: 
+        is_already_idle = False
         data = get_monitors_activity()
         print(f"Активность:{data}")
 

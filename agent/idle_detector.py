@@ -12,7 +12,7 @@ class IdleDetector:
         self.mouse_listener.start()
         self.keyboard_listener.start()
 
-    def on_activity(self): 
+    def on_activity(self, *args): 
         self.last_input_time = time.time()
     
     def last_activity_time(self):
@@ -24,8 +24,6 @@ class IdleDetector:
 
     # надо будет сделать проверку на то, открыт ли сейчас плеер ютуб или что то где не нужна мышь и клавиатура 
     
-detector = IdleDetector()
-# for i in range(2):
-las
-time.sleep(5)
-print(detector.is_idle())
+# detector = IdleDetector()
+# print(detector.last_activity_time())
+# print(detector.is_idle())
