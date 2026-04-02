@@ -12,13 +12,13 @@ class IdleDetector:
         self.mouse_listener.start()
         self.keyboard_listener.start()
 
-    def on_activity(self, *args): 
+    def on_activity(self, *args) -> int: 
         self.last_input_time = time.time()
     
-    def last_activity_time(self):
+    def last_activity_time(self) -> int:
         return time.time() - self.last_input_time 
     
-    def is_idle(self): # если пользователь долго не двигается то отключаем сбор 
+    def is_idle(self) -> bool: # если пользователь долго не двигается то отключаем сбор 
         return self.last_activity_time() > self.threshold
     
 
