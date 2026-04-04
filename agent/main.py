@@ -11,6 +11,10 @@ is_already_idle = False
 
 while True:
     if detector.is_idle(): # если нет движения то входим в цикл ожилания какого то действия 
+        if data and data[0]["process_name"] == 'firefox.exe' and "YouTube" in data[0]["title"] or "Anime" in data[0]["title"]:
+            print(f"Просмотр видео, активность: {data}")
+            time.sleep(5)
+            continue
         if is_already_idle:
             time.sleep(5)
             continue

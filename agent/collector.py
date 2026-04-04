@@ -3,10 +3,12 @@ import win32gui
 import win32process
 import psutil
 import time 
+import logging
+from colorama import  Fore , Back , Style  
+
 # from classifier import get_class
 class Collector:
     def __init__(self):
-    
         self.active_window= { 
                 "monitor": int, 
                 "title": list,
@@ -14,6 +16,15 @@ class Collector:
                 "x_cord": int,
                 "class": str, 
             }
+    #LOGGING
+    logging.basicConfig(
+    filename=r"C:\Users\manyt\Desktop\Time-tracker\Auto-Time-Tracker\logs\logs.log",
+    encoding="UTF-8",
+    level=logging.INFO,
+    format="%(asctime)s - %(message)s",
+    )
+    logger = logging.getLogger(__name__)  
+    
     def get_monitors_activity(self) -> dict:
         # Надо сделать красивее
         hwnd = win32gui.GetForegroundWindow()
@@ -41,6 +52,7 @@ class Collector:
             # "category": category
         }
         # вызываем функцию классификации, получаем класифицированную информацию и отправляем её в бд 
+        self.logger.info(f"Current window: {[self.active_window]} ")
         return  [self.active_window] # данные должны отсуда идти в бд 
 
 if __name__ == "__main__":
