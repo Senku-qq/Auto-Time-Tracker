@@ -25,4 +25,4 @@ while True:
         print(f"Активность:{data}")
     except Exception as e: 
         print(f"Error: {e}")
-    time.sleep(15)
+    time.sleep(5)
