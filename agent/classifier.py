@@ -1,8 +1,6 @@
 # Локальная первичная обработка строк
 
-Categories = ["learning","games","communication","chill","coding"]
-
-# def get_class(string:str, title:str) -> str: 
-#     pass
-
-# get_class(string="lol", title="text")
+def classified():
+    with open(file='/logs/logs.log', mode="r", encoding="UTF-8") as f: 
+        f.readline() # читать надо снизу
+        
