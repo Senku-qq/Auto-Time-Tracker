@@ -21,9 +21,6 @@ class IdleDetector:
     def is_idle(self) -> bool: # если пользователь долго не двигается то отключаем сбор 
         return self.last_activity_time() > self.threshold
     
-
-    # надо будет сделать проверку на то, открыт ли сейчас плеер ютуб или что то где не нужна мышь и клавиатура 
-    
 # detector = IdleDetector()
 # print(detector.last_activity_time())
 # print(detector.is_idle())

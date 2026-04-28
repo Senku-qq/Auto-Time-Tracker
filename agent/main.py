@@ -1,15 +1,16 @@
 # Точка входа в агент
 # идеи : Вызывать collector() тут, каждые 5 секунд 
 # Также тут должны вызываться все функции, надо написать тестовые вызовы чтобы проверить совместимость коллектора с детектора
-from collector import * 
-from idle_detector import * 
+from collector import Collector
+from idle_detector import IdleDetector
+
 import time 
 detector = IdleDetector()
 collector = Collector()
 is_already_idle = False
 
-
 while True:
+    data = collector.get_monitors_activity()
     if detector.is_idle(): # если нет движения то входим в цикл ожилания какого то действия 
         if data and data[0]["process_name"] == 'firefox.exe' and "YouTube" in data[0]["title"] or "Anime" in data[0]["title"]:
             print(f"Просмотр видео, активность: {data}")

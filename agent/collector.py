@@ -3,7 +3,8 @@ import win32gui
 import win32process
 import psutil
 import time 
-import logging
+from utils import logger
+from classifier import classify
 from colorama import  Fore , Back , Style  
 
 # from classifier import get_class
@@ -16,19 +17,10 @@ class Collector:
                 "x_cord": int,
                 "class": str, 
             }
-    #LOGGING
-    logging.basicConfig(
-    filename=r"C:\Users\manyt\Desktop\Time-tracker\Auto-Time-Tracker\logs\logs.log",
-    encoding="UTF-8",
-    level=logging.INFO,
-    format="%(asctime)s - %(message)s",
-    )
-    logger = logging.getLogger(__name__)  
-    
     def get_monitors_activity(self) -> dict:
         # Надо сделать красивее
         hwnd = win32gui.GetForegroundWindow()
-        title = win32gui.GetWindowText(hwnd).splitlines("-")
+        title = win32gui.GetWindowText(hwnd)
         pid = win32process.GetWindowThreadProcessId(hwnd) #Тут выподиться так (ID потока, ID процесса) нам нужен id процесса 
         rect = win32gui.GetWindowRect(hwnd)
         process_name = psutil.Process(pid[1]).name()
@@ -38,6 +30,7 @@ class Collector:
         elif x_left >= 1900: 
             monitor = 2
         else: return "Error: Unknown monitor"     
+        category = classify(title, process_name)
         
         # category = get_class(process_name, title)
         # вызываем функцию классификации, получаем класифицированную информацию и отправляем её в бд 
@@ -46,13 +39,13 @@ class Collector:
         
         self.active_window = { 
             "monitor": monitor, 
-            "title": title[0] if title else "Untitled Window",
+            "title": title if title else "Untitled Window",
             "process_name": process_name, 
             "x_cord": x_left,
-            # "category": category
+            "category": category
         }
         # вызываем функцию классификации, получаем класифицированную информацию и отправляем её в бд 
-        self.logger.info(f"Current window: {[self.active_window]} ")
+        logger.info(f"Current window: {[self.active_window]} ")
         return  [self.active_window] # данные должны отсуда идти в бд 
 
 if __name__ == "__main__":
